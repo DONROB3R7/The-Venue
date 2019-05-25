@@ -9,9 +9,26 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      drawerOpen: false
+      drawerOpen: false,
+      headerShow: false
     };
   }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.hanleScroll);
+  }
+
+  hanleScroll = () => {
+    if (window.scrollY > 0) {
+      this.setState({
+        headerShow: true
+      });
+    } else {
+      this.setState({
+        headerShow: false
+      });
+    }
+  };
 
   toggleDrawer = value => {
     this.setState({
@@ -24,7 +41,7 @@ class Header extends Component {
       <AppBar
         position="fixed"
         style={{
-          backgroundColor: "#2f2f2f",
+          backgroundColor: this.state.headerShow ? "#2f2f2f" : "transparent",
           boxShadow: "none",
           padding: "10px 0"
         }}
